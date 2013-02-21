@@ -3,14 +3,16 @@
 #include <znc/IRCNetwork.h>
 #include <znc/Modules.h>
 
+using std::vector;
+
 class COfflineMarkerMod : public CModule {
 public:
 	MODCONSTRUCTOR(COfflineMarkerMod) {}
 	virtual ~COfflineMarkerMod() {}
 
 	void AddBuffer(CChan& Channel, const CString& sMessage) {
-		// If they have keep buffer disabled, only add messages if no client is connected
-		if (!Channel.KeepBuffer() && m_pNetwork->IsUserOnline())
+		// If they have automatic buffer clearing enabled, only add messages if no client is connected
+		if (Channel.AutoClearChanBuffer() && m_pNetwork->IsUserOnline())
 			return;
 
 		Channel.AddBuffer(":" + GetModNick() + "!" + GetModName() + "@znc.in PRIVMSG " + _NAMEDFMT(Channel.GetName()) + " :{text}", sMessage);

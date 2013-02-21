@@ -3,11 +3,13 @@
 A (very) simple module, which when loaded will insert a "-- MARK --" line
 in all channel-logs when a client disconnects.
 
+Requires ZNC v1.0+
+
 ## Compiling and installing
 
 Run the following on the box where ZNC is installed:
 
-	$ znc-build offlinemarker.cpp
+	$ znc-buildmod offlinemarker.cpp
 	$ cp offlinemarker.so ~/.zsh/modules/
 
 Run the following from within your IRC program, which should be
